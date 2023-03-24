@@ -28,6 +28,14 @@ void screen() {
     printw("Press F2 to exit");
     refresh();
     term_window = create_window(row, col, start_y, start_x);
-   
+
+    while((ch = getch()) != KEY_F(2)) {
+        switch(ch) {
+            case 'q':
+                printw("you pressed q");
+                break;
+        }
+    };
+    endwin();
 
 };
