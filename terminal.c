@@ -39,6 +39,9 @@ void screen() {
             case 'q':
                 print_center("You endterd q, please enter F2 to quit", row, col);
                 break;
+            case 'c':
+                print_center("You entered c please enter F2 to quit", row, col);
+                break;
         }
     };
     endwin();
