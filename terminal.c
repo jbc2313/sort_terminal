@@ -1,5 +1,6 @@
 #include <ncurses.h>
 #include <string.h>
+#include <unistd.h>
 
 WINDOW *create_window(int height, int width, int start_y, int start_x);
 void kill_window(WINDOW *window);
@@ -14,8 +15,10 @@ WINDOW *create_window(int height, int width, int start_y, int start_x) {
 
 };
 
-void print_center(char *string, int height, int width) {
-    mvprintw(height/2, (width-strlen(string))/2, "%s", string); 
+void print_center(WINDOW *win, char *string, int height, int width) {
+    mvwprintw(win, height/2, (width-strlen(string))/2, "%s", string);
+    wrefresh(win);
+
 };
 
 void screen() {
@@ -37,10 +40,13 @@ void screen() {
     while((ch = getch()) != KEY_F(2)) {
         switch(ch) {
             case 'q':
-                print_center("You endterd q, please enter F2 to quit", row, col);
+                print_center(term_window, "You entered 'q', please enter 'F2' to quit", row, col);
                 break;
             case 'c':
-                print_center("You entered c please enter F2 to quit", row, col);
+                print_center(term_window, "You entered 'c' please enter 'F2' to quit", row, col);
+                break;
+            case 's':
+                print_center(term_window, "Please select the algorithm you want to use.", row, col);
                 break;
         }
     };
