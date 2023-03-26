@@ -40,12 +40,18 @@ void screen() {
     while((ch = getch()) != KEY_F(2)) {
         switch(ch) {
             case 'q':
+                delwin(term_window);
+                term_window = create_window(row, col, start_y, start_x);
                 print_center(term_window, "You entered 'q', please enter 'F2' to quit", row, col);
                 break;
             case 'c':
+                delwin(term_window);
+                term_window = create_window(row, col, start_y, start_x);
                 print_center(term_window, "You entered 'c' please enter 'F2' to quit", row, col);
                 break;
             case 's':
+                delwin(term_window);
+                term_window = create_window(row, col, start_y, start_x);
                 print_center(term_window, "Please select the algorithm you want to use.", row, col);
                 break;
         }
