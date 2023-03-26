@@ -1,4 +1,5 @@
 #include <ncurses.h>
+//#include <menu.h>
 #include <string.h>
 #include <unistd.h>
 
@@ -21,9 +22,22 @@ void print_center(WINDOW *win, char *string, int height, int width) {
 
 };
 
+char *algo_choices[] = {
+    "bubble",
+    "merge",
+    "selection",
+    "insertion",
+    "quick",
+    "QUIT",
+};
+
+void algo_selection_menu(int width, int height) {
+    
+};
+
 void screen() {
     WINDOW *term_window;
-    int start_x, start_y, width, height, row, col;
+    int start_x, start_y, width, height, row, col, m_width, m_height;
     int ch;
     initscr(); // start ncurses
     getmaxyx(stdscr, row, col); 
@@ -36,6 +50,8 @@ void screen() {
     //printw("Press F2 to exit");
     refresh();
     term_window = create_window(row, col, start_y, start_x);
+    m_width = row / 2; //These are the dimensions of the algo menu
+    m_height = col / 2;
 
     while((ch = getch()) != KEY_F(2)) {
         switch(ch) {
