@@ -2,8 +2,8 @@
 #include <string.h>
 #include <unistd.h>
 
-WINDOW *create_window(int height, int width, int start_y, int start_x);
-void kill_window(WINDOW *window);
+//WINDOW *create_window(int height, int width, int start_y, int start_x);
+//void kill_window(WINDOW *window);
 
 WINDOW *create_window(int height, int width, int start_y, int start_x) {
     WINDOW *local_window;
@@ -30,12 +30,17 @@ char *algo_choices[] = {
 };
 int num_algo_choices = sizeof(algo_choices) / sizeof(algo_choices[0]);
 
-void algo_selection_menu(int width, int height, int selection_size, char **choices) {
-    WINDOW *algo_menu = newwin(selection_size+2, 30, width, height);
+void algo_selection_menu(int height, int width, int selection_size, char **choices) {
+    WINDOW *algo_menu = create_window(selection_size+10, 50, height-10, width-20);
     int i;
+    char teststring[] = "Print this out!";
     for(i = 0; i < selection_size; i++) {
-        mvprintw(i+1, 2, choices[i]);
+        mvwprintw(algo_menu, i+1, 1, "%s", choices[i]);
+        
     }
+    //mvwprintw(algo_menu, 1, 1, "%s", "PRINT"); //this is the proper way to print inside a window 1,1 is the line/col respectively
+    //wprintw(algo_menu, "PRINT THIS"); // this just prints at 0,1 of window
+    wrefresh(algo_menu);
 };
 
 void screen() {
@@ -53,8 +58,8 @@ void screen() {
     //printw("Press F2 to exit");
     refresh();
     term_window = create_window(row, col, start_y, start_x);
-    m_width = row / 2; //These are the dimensions of the algo menu
-    m_height = col / 2;
+    m_height = row / 2; //These are the dimensions of the algo menu
+    m_width = col / 2;
 
     while((ch = getch()) != KEY_F(2)) {
         switch(ch) {
@@ -71,7 +76,7 @@ void screen() {
                 delwin(term_window);
                 term_window = create_window(row, col, start_y, start_x);
                 //print_center(term_window, "Please select the algorithm you want to use.", row, col);
-                algo_selection_menu(m_width, m_height, num_algo_choices, algo_choices);
+                algo_selection_menu(m_height, m_width, num_algo_choices, algo_choices);
                 break;
         }
     };
