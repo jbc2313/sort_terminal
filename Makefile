@@ -1,5 +1,5 @@
 program: main.c
-	gcc -g -lncurses -lmenu main.c -o show
+	clang -g -lncurses main.c -o show
 
 .PHONY: clean
 

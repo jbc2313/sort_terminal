@@ -20,6 +20,11 @@ void print_center(WINDOW *win, char *string, int height, int width) {
     wrefresh(win);
 };
 
+void print_userchoice_center(WINDOW *win, int user_choice, int height, int width) {
+    mvwprintw(win, height, width, "The user chose %d", user_choice); 
+    wrefresh(win);
+}
+
 char *algo_choices[] = {
     "bubble",
     "merge",
@@ -30,12 +35,10 @@ char *algo_choices[] = {
 };
 int num_algo_choices = sizeof(algo_choices) / sizeof(algo_choices[0]);
 
-
 void display_bubble() {
   WINDOW *bubble_win = create_window(100, 100, 0, 0) ;
-
+  //print_center(bubble_win, "Lets bubble sort", 5, 1);
 }
-
 
 void algo_selection_menu(int height, int width, int algo_user_choice, int selection_size, char **choices) {
     WINDOW *algo_menu;
@@ -80,7 +83,9 @@ void algo_selection_menu(int height, int width, int algo_user_choice, int select
                 } else {
                     // go into the selected item
                     mvwprintw(algo_menu, 12, 2, "You selected %s", choices[highlight-1]);
+
                     algo_user_choice = highlight;
+                    exit = 2;
                     wrefresh(algo_menu);
                 }
                 break;
@@ -89,6 +94,9 @@ void algo_selection_menu(int height, int width, int algo_user_choice, int select
         wrefresh(algo_menu);
         if(exit == 1) {
             mvwprintw(algo_menu, 12, 2, "You quit!");
+            break;
+        }
+        if(exit == 2) {
             break;
         }
     }
@@ -136,10 +144,12 @@ void screen() {
                 if(algo_user_choice == -1) {
                     print_center(term_window, "Press F2 to exit back to the terminal", row, col);
                     wrefresh(term_window);
-                } else {
+                }
+                if(algo_user_choice != -1) {
                     // need to print the user selected algo
                     // this will print the user selected algo to double check
-                    //print_center(term_window, ("You selected %d", algo_user_choice), row, col);
+                    print_userchoice_center(term_window, algo_user_choice, row, col); 
+                    wrefresh(term_window);
                 }
                 break;
         }
