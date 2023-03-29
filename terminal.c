@@ -30,8 +30,16 @@ char *algo_choices[] = {
 };
 int num_algo_choices = sizeof(algo_choices) / sizeof(algo_choices[0]);
 
+
+void display_bubble() {
+  WINDOW *bubble_win = create_window(100, 100, 0, 0) ;
+
+}
+
+
 void algo_selection_menu(int height, int width, int selection_size, char **choices) {
-    WINDOW *algo_menu = create_window(selection_size+10, 50, height-10, width-20);
+    WINDOW *algo_menu;
+    algo_menu = create_window(selection_size+10, 50, height-10, width-20);
     int user_selection, i;
     int highlight = 1;
     int exit = 0;
@@ -48,6 +56,7 @@ void algo_selection_menu(int height, int width, int selection_size, char **choic
     mvwprintw(algo_menu, highlight, 1, ">");
     while((user_selection=wgetch(algo_menu)) != 'q') {
         mvwprintw(algo_menu, highlight, 1, " ");
+        mvwprintw(algo_menu, 12, 1, "                               ");
         switch (user_selection) {
             case KEY_UP:
                 highlight--;
@@ -70,7 +79,7 @@ void algo_selection_menu(int height, int width, int selection_size, char **choic
 
                 } else {
                     // go into the selected item
-                    mvwprintw(algo_menu, 12, 2, "YOU DID IT");
+                    mvwprintw(algo_menu, 12, 2, "You selected %s", choices[highlight-1]);
                     wrefresh(algo_menu);
                 }
                 break;
@@ -131,3 +140,8 @@ void screen() {
     };
     endwin();
 };
+
+
+
+
+
