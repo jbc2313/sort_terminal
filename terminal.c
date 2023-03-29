@@ -34,6 +34,7 @@ void algo_selection_menu(int height, int width, int selection_size, char **choic
     WINDOW *algo_menu = create_window(selection_size+10, 50, height-10, width-20);
     int user_selection, i;
     int highlight = 1;
+    int exit = 0;
     char teststring[] = "Print this out!";
     keypad(algo_menu, TRUE);
     for(i = 0; i < selection_size; i++) {
@@ -62,7 +63,11 @@ void algo_selection_menu(int height, int width, int selection_size, char **choic
                 break;
             case 10: //This is the ENTER key
                 if(highlight == selection_size) {
-                    // this is the exit path 
+                    // this is the exit path
+                    //user_selection = 'q';
+                    //mvwprintw(algo_menu, 12, 2, "Press 'q' to exit.");
+                    exit = 1;
+
                 } else {
                     // go into the selected item
                     mvwprintw(algo_menu, 12, 2, "YOU DID IT");
@@ -72,10 +77,13 @@ void algo_selection_menu(int height, int width, int selection_size, char **choic
         }
         mvwprintw(algo_menu, highlight, 1, ">");
         wrefresh(algo_menu);
+        if(exit == 1) {
+            mvwprintw(algo_menu, 12, 2, "You quit!");
+            break;
+        }
+
     }
-
-
-
+    delwin(algo_menu);
 
 };
 
@@ -113,6 +121,11 @@ void screen() {
                 term_window = create_window(row, col, start_y, start_x);
                 //print_center(term_window, "Please select the algorithm you want to use.", row, col);
                 algo_selection_menu(m_height, m_width, num_algo_choices, algo_choices);
+                refresh();
+                delwin(term_window);
+                term_window = create_window(row, col, start_y, start_x);
+                print_center(term_window, "Press F2 to exit back to the terminal", row, col);
+                wrefresh(term_window);
                 break;
         }
     };
