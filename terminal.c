@@ -35,6 +35,7 @@ void algo_selection_menu(int height, int width, int selection_size, char **choic
     int user_selection, i;
     int highlight = 1;
     char teststring[] = "Print this out!";
+    keypad(algo_menu, TRUE);
     for(i = 0; i < selection_size; i++) {
         mvwprintw(algo_menu, i+1, 2, "%s", choices[i]); 
     }
@@ -47,13 +48,13 @@ void algo_selection_menu(int height, int width, int selection_size, char **choic
     while((user_selection=wgetch(algo_menu)) != 'q') {
         mvwprintw(algo_menu, highlight, 1, " ");
         switch (user_selection) {
-            case 'k':
+            case KEY_UP:
                 highlight--;
                 if(highlight==0) {
                     highlight = selection_size;
                 }
                 break;
-            case 'j':
+            case KEY_DOWN:
                 highlight++;
                 if(highlight > selection_size) {
                     highlight = 1;
