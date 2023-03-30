@@ -144,8 +144,7 @@ void screen() {
                 if(algo_user_choice == -1) {
                     print_center(term_window, "Press F2 to exit back to the terminal", row, col);
                     wrefresh(term_window);
-                }
-                if(algo_user_choice != -1) {
+                }else {
                     // need to print the user selected algo
                     // this will print the user selected algo to double check
                     print_userchoice_center(term_window, algo_user_choice, row, col); 
