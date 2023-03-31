@@ -1,7 +1,7 @@
 program: main.c
-	clang -g -lncurses main.c -o show
+	gcc -g -lncurses main.c -o sort_terminal
 
 .PHONY: clean
 
 clean: 
-	rm show
+	rm sort_terminal

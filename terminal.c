@@ -1,6 +1,7 @@
 #include <ncurses.h>
 #include <string.h>
 #include <unistd.h>
+#include <assert.h>
 
 //WINDOW *create_window(int height, int width, int start_y, int start_x);
 //void kill_window(WINDOW *window);
@@ -21,7 +22,7 @@ void print_center(WINDOW *win, char *string, int height, int width) {
 };
 
 void print_userchoice_center(WINDOW *win, int user_choice, int height, int width) {
-    mvwprintw(win, height, width, "The user chose %d", user_choice); 
+    mvwprintw(win, height/2, (width - 15)/2, "The user chose %d", user_choice); 
     wrefresh(win);
 }
 
@@ -40,7 +41,7 @@ void display_bubble() {
   //print_center(bubble_win, "Lets bubble sort", 5, 1);
 }
 
-void algo_selection_menu(int height, int width, int algo_user_choice, int selection_size, char **choices) {
+void algo_selection_menu(int height, int width, int *algo_user_choice , int selection_size, char **choices) {
     WINDOW *algo_menu;
     algo_menu = create_window(selection_size+10, 50, height-10, width-20);
     int user_selection, i;
@@ -78,13 +79,26 @@ void algo_selection_menu(int height, int width, int algo_user_choice, int select
                     // this is the exit path
                     //user_selection = 'q';
                     //mvwprintw(algo_menu, 12, 2, "Press 'q' to exit.");
-                    algo_user_choice = -1;
+                    *algo_user_choice = -1;
                     exit = 1;
                 } else {
                     // go into the selected item
-                    mvwprintw(algo_menu, 12, 2, "You selected %s", choices[highlight-1]);
+                    //mvwprintw(algo_menu, 12, 2, "You selected %s", choices[highlight-1]);
 
-                    algo_user_choice = highlight;
+                    switch(highlight) {
+                        case 0:
+                            *algo_user_choice = 0;
+                        case 1:
+                            *algo_user_choice = 1;
+                        case 2:
+                            *algo_user_choice = 2;
+                        case 3:
+                            *algo_user_choice = 3;
+                        case 4:
+                            *algo_user_choice = 4;
+                        case 5:
+                            *algo_user_choice = 5;
+                    }
                     exit = 2;
                     wrefresh(algo_menu);
                 }
@@ -107,7 +121,7 @@ void screen() {
     WINDOW *term_window;
     int start_x, start_y, width, height, row, col, m_width, m_height;
     int ch;
-    int algo_user_choice = -1;
+    int algo_user_choice;
     initscr(); // start ncurses
     getmaxyx(stdscr, row, col); 
     raw(); // line buffering disabled
@@ -137,12 +151,12 @@ void screen() {
                 delwin(term_window);
                 term_window = create_window(row, col, start_y, start_x);
                 //print_center(term_window, "Please select the algorithm you want to use.", row, col);
-                algo_selection_menu(m_height, m_width, algo_user_choice, num_algo_choices, algo_choices);
-                refresh();
+                algo_selection_menu(m_height, m_width, &algo_user_choice, num_algo_choices, algo_choices);
                 delwin(term_window);
                 term_window = create_window(row, col, start_y, start_x);
                 if(algo_user_choice == -1) {
-                    print_center(term_window, "Press F2 to exit back to the terminal", row, col);
+                    //assert(strcmp(algo_user_choice,"quit") == 0); 
+                    print_center(term_window, "you quit the menu", row, col);
                     wrefresh(term_window);
                 }else {
                     // need to print the user selected algo
