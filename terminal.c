@@ -45,7 +45,7 @@ void algo_selection_menu(int height, int width, int *algo_user_choice , int sele
     WINDOW *algo_menu;
     algo_menu = create_window(selection_size+10, 50, height-10, width-20);
     int user_selection, i;
-    int highlight = 1;
+    int highlight = 0;
     int exit = 0;
     char teststring[] = "Print this out!";
     keypad(algo_menu, TRUE);
@@ -64,14 +64,14 @@ void algo_selection_menu(int height, int width, int *algo_user_choice , int sele
         switch (user_selection) {
             case KEY_UP:
                 highlight--;
-                if(highlight==0) {
-                    highlight = selection_size;
+                if(highlight==-1) {
+                    highlight = 0;
                 }
                 break;
             case KEY_DOWN:
                 highlight++;
                 if(highlight > selection_size) {
-                    highlight = 1;
+                    highlight = 5;
                 }
                 break;
             case 10: //This is the ENTER key
@@ -84,7 +84,7 @@ void algo_selection_menu(int height, int width, int *algo_user_choice , int sele
                 } else {
                     // go into the selected item
                     //mvwprintw(algo_menu, 12, 2, "You selected %s", choices[highlight-1]);
-
+                    //assign the algo user selection int to the index number of the algo they want
                     switch(highlight) {
                         case 0:
                             *algo_user_choice = 0;
@@ -96,8 +96,6 @@ void algo_selection_menu(int height, int width, int *algo_user_choice , int sele
                             *algo_user_choice = 3;
                         case 4:
                             *algo_user_choice = 4;
-                        case 5:
-                            *algo_user_choice = 5;
                     }
                     exit = 2;
                     wrefresh(algo_menu);
