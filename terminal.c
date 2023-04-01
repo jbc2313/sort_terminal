@@ -6,6 +6,18 @@
 //WINDOW *create_window(int height, int width, int start_y, int start_x);
 //void kill_window(WINDOW *window);
 
+//algorithms user has to choose from
+char *algo_choices[] = {
+    "bubble",
+    "merge",
+    "selection",
+    "insertion",
+    "quick",
+    "QUIT",
+};
+int num_algo_choices = sizeof(algo_choices) / sizeof(algo_choices[0]);
+
+//create a basic window with a border
 WINDOW *create_window(int height, int width, int start_y, int start_x) {
     WINDOW *local_window;
     local_window = newwin(height, width, start_y, start_x);
@@ -16,25 +28,24 @@ WINDOW *create_window(int height, int width, int start_y, int start_x) {
 
 };
 
+// print a string in center of screen
 void print_center(WINDOW *win, char *string, int height, int width) {
     mvwprintw(win, height/2, (width-strlen(string))/2, "%s", string);
     wrefresh(win);
 };
-
-void print_userchoice_center(WINDOW *win, int user_choice, int height, int width) {
+// print an integer in center of screen
+void print_userchoice_int_center(WINDOW *win, int user_choice, int height, int width) {
     mvwprintw(win, height/2, (width - 15)/2, "The user chose %d", user_choice); 
     wrefresh(win);
 }
+// print the users chosen algorithm in center of screen
+void print_userchoice_center(WINDOW *win, int user_choice, int height, int width) { 
+    char *selected_algo;
+    selected_algo = algo_choices[user_choice];
+    mvwprintw(win, height/2, (width-strlen(selected_algo))/2, "%s", selected_algo);
+    wrefresh(win);
+}
 
-char *algo_choices[] = {
-    "bubble",
-    "merge",
-    "selection",
-    "insertion",
-    "quick",
-    "QUIT",
-};
-int num_algo_choices = sizeof(algo_choices) / sizeof(algo_choices[0]);
 
 void display_bubble() {
   WINDOW *bubble_win = create_window(100, 100, 0, 0) ;
@@ -163,13 +174,22 @@ void screen() {
                 delwin(term_window);
                 term_window = create_window(row, col, start_y, start_x);
                 if (algo_user_choice == -1) {
+                    // User quit from algo selection menu.
+                    
                     //assert(strcmp(algo_user_choice,"quit") == 0); 
                     print_center(term_window, "you quit the menu", row, col);
                     wrefresh(term_window);
                 } else {
+                    // user selected an algo
+
                     // need to print the user selected algo
-                    // this will print the user selected algo to double check
-                    print_userchoice_center(term_window, algo_user_choice, row, col); 
+                    
+                    // this will print the user selected algo's index to double check
+                    //print_userchoice_int_center(term_window, algo_user_choice, row, col); 
+
+                    // prints the user selected algo
+                    print_userchoice_center(term_window, algo_user_choice, row, col);
+
                     wrefresh(term_window);
                 }
                 break;
