@@ -87,30 +87,38 @@ void algo_selection_menu(int height, int width, int *algo_user_choice , int sele
                     // go into the selected item
                     //mvwprintw(algo_menu, 12, 2, "You selected %s", choices[highlight-1]);
                     //assign the algo user selection int to the index number of the algo they want
-                    switch(highlight) {
-                        case 1:
-                            *algo_user_choice = 0;
-                        case 2:
-                            *algo_user_choice = 1;
-                        case 3:
-                            *algo_user_choice = 2;
-                        case 4:
-                            *algo_user_choice = 3;
-                        case 5:
-                            *algo_user_choice = 4;
+                    if (highlight == 1) {
+                        *algo_user_choice = 0;
                     }
+                    if (highlight == 2) {
+                        *algo_user_choice = 1;
+                    }
+                    if (highlight == 3) {
+                        *algo_user_choice = 2;
+                    } 
+                    if (highlight == 4) {
+                        *algo_user_choice = 3;
+                    }
+                    if (highlight == 5) {
+                        *algo_user_choice = 4;
+                    }
+
+                
                     exit = 2;
                     wrefresh(algo_menu);
-                }
-                break;
+                    break;
+                };
+
+                
         }
         mvwprintw(algo_menu, highlight, 1, ">");
         wrefresh(algo_menu);
         if(exit == 1) {
-            mvwprintw(algo_menu, 12, 2, "You quit!");
+            //user chose quit
             break;
         }
         if(exit == 2) {
+            //user chose an algo
             break;
         }
     }
@@ -154,11 +162,11 @@ void screen() {
                 algo_selection_menu(m_height, m_width, &algo_user_choice, num_algo_choices, algo_choices);
                 delwin(term_window);
                 term_window = create_window(row, col, start_y, start_x);
-                if(algo_user_choice == -1) {
+                if (algo_user_choice == -1) {
                     //assert(strcmp(algo_user_choice,"quit") == 0); 
                     print_center(term_window, "you quit the menu", row, col);
                     wrefresh(term_window);
-                }else {
+                } else {
                     // need to print the user selected algo
                     // this will print the user selected algo to double check
                     print_userchoice_center(term_window, algo_user_choice, row, col); 
