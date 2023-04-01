@@ -67,15 +67,17 @@ void algo_selection_menu(int height, int width, int *algo_user_choice , int sele
                 if(highlight==0) {
                     highlight = 1;
                 }
+                mvwprintw(algo_menu, 12, 1, "highlight = %d", highlight);
                 break;
             case KEY_DOWN:
                 highlight++;
                 if(highlight > selection_size) {
                     highlight = 6;
                 }
+                mvwprintw(algo_menu, 12, 1, "highlight = %d", highlight);
                 break;
             case 10: //This is the ENTER key
-                if(highlight == selection_size) {
+                if(highlight == 6) {
                     // this is the exit path
                     //user_selection = 'q';
                     //mvwprintw(algo_menu, 12, 2, "Press 'q' to exit.");
