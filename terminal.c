@@ -45,7 +45,7 @@ void algo_selection_menu(int height, int width, int *algo_user_choice , int sele
     WINDOW *algo_menu;
     algo_menu = create_window(selection_size+10, 50, height-10, width-20);
     int user_selection, i;
-    int highlight = 0;
+    int highlight = 1;
     int exit = 0;
     char teststring[] = "Print this out!";
     keypad(algo_menu, TRUE);
@@ -64,14 +64,14 @@ void algo_selection_menu(int height, int width, int *algo_user_choice , int sele
         switch (user_selection) {
             case KEY_UP:
                 highlight--;
-                if(highlight==-1) {
-                    highlight = 0;
+                if(highlight==0) {
+                    highlight = 1;
                 }
                 break;
             case KEY_DOWN:
                 highlight++;
                 if(highlight > selection_size) {
-                    highlight = 5;
+                    highlight = 6;
                 }
                 break;
             case 10: //This is the ENTER key
@@ -86,15 +86,15 @@ void algo_selection_menu(int height, int width, int *algo_user_choice , int sele
                     //mvwprintw(algo_menu, 12, 2, "You selected %s", choices[highlight-1]);
                     //assign the algo user selection int to the index number of the algo they want
                     switch(highlight) {
-                        case 0:
-                            *algo_user_choice = 0;
                         case 1:
-                            *algo_user_choice = 1;
+                            *algo_user_choice = 0;
                         case 2:
-                            *algo_user_choice = 2;
+                            *algo_user_choice = 1;
                         case 3:
-                            *algo_user_choice = 3;
+                            *algo_user_choice = 2;
                         case 4:
+                            *algo_user_choice = 3;
+                        case 5:
                             *algo_user_choice = 4;
                     }
                     exit = 2;
