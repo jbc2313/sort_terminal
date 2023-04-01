@@ -2,6 +2,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <assert.h>
+#include "visual_sort.c"
 
 //WINDOW *create_window(int height, int width, int start_y, int start_x);
 //void kill_window(WINDOW *window);
@@ -175,6 +176,8 @@ void screen() {
                 term_window = create_window(row, col, start_y, start_x);
                 if (algo_user_choice == -1) {
                     // User quit from algo selection menu.
+                    // can reformat this code to use switch stament below.
+                    // its good enough for now.
                     
                     //assert(strcmp(algo_user_choice,"quit") == 0); 
                     print_center(term_window, "you quit the menu", row, col);
@@ -188,7 +191,26 @@ void screen() {
                     //print_userchoice_int_center(term_window, algo_user_choice, row, col); 
 
                     // prints the user selected algo
-                    print_userchoice_center(term_window, algo_user_choice, row, col);
+                    //print_userchoice_center(term_window, algo_user_choice, row, col);
+
+                    //this switch statement need to be updated as algo views are made
+                    switch(algo_user_choice){
+                        case 0:
+                            view_bubble(term_window);
+                            break;
+                        case 1:
+                            print_userchoice_center(term_window, algo_user_choice, row, col);
+                            break;
+                        case 2:
+                            print_userchoice_center(term_window, algo_user_choice, row, col);
+                            break;
+                        case 3:
+                            print_userchoice_center(term_window, algo_user_choice, row, col);
+                            break;
+                        case 4:
+                            print_userchoice_center(term_window, algo_user_choice, row, col);
+                            break;
+                    };
 
                     wrefresh(term_window);
                 }
