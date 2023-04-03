@@ -57,18 +57,39 @@ void view_bubble(WINDOW *win){
     // have to figure this out
     char visual[10][30] = {"x","x","x","x","x","x","x","x","x","x"};
     //char *visual[30] = {"x","x","x","x","x","x","x","x","x","x"};
+    int lookup[10][2] = { 
+        2,2,
+        2,2,
+        2,2,
+        2,2,
+        2,2,
+        2,2,
+        2,2,
+        2,2,
+        2,2,
+        2,2,
+    };
     
     //make visual match bub_array with x's 
-     for(z = 0; z < bub_array_size; z++){  
+    for(z = 0; z < bub_array_size; z++){  
          for(x = bub_array[z] - 1; x > 0; x--){ 
              strcat(visual[z], "x");
          } 
-     } 
-      
+     };
+    // copy visual index size to lookup index lhand 
+    // j < 10 because array is 10. j <= 10 is actually 11 
+    for(j = 0; j < 10; j++) {
+       lookup[j][0] = (int)strlen(visual[j]); 
+    };
+
+    for(j = 0; j < 10; j++) {
+        int tmp = lookup[j][0];
+        mvwprintw(win, j+1, 30, "lookup 0: %d", tmp);
+    }
     //print visual array on screen 
     for(i = 0; i < bub_array_size; i++) {
         mvwprintw(win, i+1, 1, "%d: %s", strlen(visual[i]), visual[i]);
-    } 
+    };
     wrefresh(win);
     sleep(1);
     /*
@@ -93,7 +114,7 @@ void view_bubble(WINDOW *win){
             mvwprintw(win, d+1, 1, "                                      ");
         }
         for(i = 0; i < bub_array_size; i++) {
-            mvwprintw(win, i+1, 1, "%d: %s", strlen(visual[i]), visual[i]);
+            mvwprintw(win, i+1, 1, "%2d: %s", strlen(visual[i]), visual[i]);
             /*
             if(strlen(visual[i]) > 9) {
                 mvwprintw(win, i+1, 1, "%d: poop %s", strlen(visual[i]), visual[i]);
