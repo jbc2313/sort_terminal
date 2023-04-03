@@ -64,11 +64,14 @@ void view_bubble(WINDOW *win){
              strcat(visual[z], "x");
          } 
      } 
-    /*  
+      
     //print visual array on screen 
     for(i = 0; i < bub_array_size; i++) {
-        mvwprintw(win, i+1, 1, "%s", visual[i]);
-    }
+        mvwprintw(win, i+1, 1, "%d: %s", strlen(visual[i]), visual[i]);
+    } 
+    wrefresh(win);
+    sleep(1);
+    /*
     //print strlen of visual array just below visual array
     for(j = 0; j < bub_array_size; j++) {
         mvwprintw(win, j+15, 1, "%d", strlen(visual[j]));
@@ -90,13 +93,21 @@ void view_bubble(WINDOW *win){
             mvwprintw(win, d+1, 1, "                                      ");
         }
         for(i = 0; i < bub_array_size; i++) {
-            mvwprintw(win, i+1, 1, "%s", visual[i]);
+            mvwprintw(win, i+1, 1, "%d: %s", strlen(visual[i]), visual[i]);
+            /*
+            if(strlen(visual[i]) > 9) {
+                mvwprintw(win, i+1, 1, "%d: poop %s", strlen(visual[i]), visual[i]);
+            }
+                mvwprintw(win, i+1, 1, "%d:  %s", strlen(visual[i]), visual[i]);
+            */
+
         }   
         
         //print out main forloop iteration index
         mvwprintw(win, 20, 1, "Index of B: %d", b);
 
         wrefresh(win);
+        //usleep(99999);
         sleep(1);
     }
 }
