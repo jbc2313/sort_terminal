@@ -4,6 +4,7 @@
 
 /* Bubble Sort */
 
+//original bubble sort algo
 /*
 void swap(int *x, int *y) {
     int tmp = *x;
@@ -24,8 +25,12 @@ void bub(int *pntr, int n) {
         };
     };
 }
+//end of original bubble sort code
 */
 
+/*
+// my attempt at figuring out bubble sort with arrays of strings
+// could not get it to work due to pointers etc etc
 void bub(char *pntr, int array_size, int bub_iterator, WINDOW *win) {
     int z;
     for (z=0; z < array_size - bub_iterator - 1; z++) {
@@ -42,18 +47,7 @@ void bub(char *pntr, int array_size, int bub_iterator, WINDOW *win) {
        }
     }
 }
-
-
-/*
-void strswap(char x, char y, char *arr, int iter) {
-    char tmp[30];
-    strcpy(tmp, x);
-    strcpy(x, y);
-    strcpy(y, tmp);
-}
 */
-
-
 
 void view_bubble(WINDOW *win){
     int b, c, d, i, j, x, z;
@@ -79,20 +73,12 @@ void view_bubble(WINDOW *win){
     for(j = 0; j < bub_array_size; j++) {
         mvwprintw(win, j+15, 1, "%d", strlen(visual[j]));
     }
-*/
-    //test strcpy in this function 
-    /* char tmp[29]; */
-    /* strcpy(tmp, visual[0]); */
-    /* strcpy(visual[0], visual[1]); */
-    /* strcpy(visual[1], tmp); */
+    */     
 
-    //iterate through visual array and bubble sort   
-    
-    
-
+    // bubble sort the array of strings in this function because of scope and pointers
     for (b = 0; b < bub_array_size - 1; b++) { 
         for (c = 0; c < bub_array_size - b - 1; c++) {
-            if (visual[c] > visual[c + 1]) {
+            if (strlen(visual[c]) > strlen(visual[c + 1])) {
                 //swap the two
                 char tmp[29];
                 strcpy(tmp, visual[c]);
@@ -105,13 +91,14 @@ void view_bubble(WINDOW *win){
         }
         for(i = 0; i < bub_array_size; i++) {
             mvwprintw(win, i+1, 1, "%s", visual[i]);
-        }       
+        }   
+        
+        //print out main forloop iteration index
+        mvwprintw(win, 20, 1, "Index of B: %d", b);
+
         wrefresh(win);
         sleep(1);
     }
-    
-
-    //wrefresh(win);
 }
 
 /* Merge Sort */ 
