@@ -50,7 +50,7 @@ void bub(char *pntr, int array_size, int bub_iterator, WINDOW *win) {
 */
 
 void view_bubble(WINDOW *win){
-    int b, c, d, i, j, x, z;
+    int b, c, d, i, j, k, l, m, x, z;
     int bub_array[] = { 12, 8, 9, 11, 6, 23, 15, 2, 7, 21};
     int bub_array_size = sizeof(bub_array) / sizeof(bub_array[0]);
     int bub_iterator = 0;
@@ -59,6 +59,7 @@ void view_bubble(WINDOW *win){
     //char *visual[30] = {"x","x","x","x","x","x","x","x","x","x"};
     
     // two dimensional array used to highlight lines moving
+    int original_lookup[10][2];
     int lookup[10][2] = { 
         0,0,
         0,0,
@@ -82,8 +83,11 @@ void view_bubble(WINDOW *win){
     // j < 10 because array is 10. j <= 10 is actually 11 
     for(j = 0; j < 10; j++) {
        lookup[j][0] = (int)strlen(visual[j]); 
+       original_lookup[j][0] = (int)strlen(visual[j]);
        lookup[j][1] = j;
+       original_lookup[j][1] = j;
     };
+
 
 
     // print inital lookup table on right of screen
@@ -115,14 +119,66 @@ void view_bubble(WINDOW *win){
                 char tmp[29];
                 strcpy(tmp, visual[c]);
                 strcpy(visual[c], visual[c+1]);
-                strcpy(visual[c+1], tmp);
+               strcpy(visual[c+1], tmp);
             };
         };
+        // copy visual to lookup;
+                    
+        for(l = 0; l < 10; l++) {
+           lookup[l][0] = (int)strlen(visual[l]); 
+           lookup[l][1] = l;
+        };
+
+
+        // find the index of the visual array that has moved
+        int moved_value;
+        int to_index;
+        int from_index;
+        for(k = 0; k < 10; k++) {
+            if (original_lookup[k][0] !=  lookup[k][0]){ 
+                // check the previous index to see if it changed. if it didnt then the current index is was the number moved 
+                if(original_lookup[k-1][0] == lookup[k+1][0]) {
+                    from_index = k;
+                    // assign moved value here
+                    moved_value = original_lookup[k][0];
+                }
+                // check to see if index is zero
+                if (k == 0) {
+                    from_index = k;
+                    // assign moved value here 
+                    moved_value = original_lookup[k][0];
+                }
+                //check the next index to see if it changed, if it didnt then the index before is where the number moved to. 
+                if(original_lookup[k+1][0] == lookup[k+1][0]) {
+                     to_index = k;      
+                } else if (k == 9) {
+                    to_index = k;
+                }
+            }
+            int tmp_print1 = lookup[k][0];
+            int tmp_print2 = lookup[k][1];
+            mvwprintw(win, k+1, 50, "updated lookup: %d ", tmp_print1); 
+            mvwprintw(win, k+1, 70, "%d", tmp_print2); 
+        }
+
+        // copy lookup to original lookup
+        for(m = 0; m < 10; m++) {
+           original_lookup[m][0] = lookup[m][0];
+           original_lookup[m][1] = m;
+        };
+
+        // remove previous visual array and print visual array to screen
         for(d = 0; d < bub_array_size; d++) {
             mvwprintw(win, d+1, 1, "                                      ");
         }
         for(i = 0; i < bub_array_size; i++) {
+            if(i == to_index) {
+                mvwprintw(win, i+1, 1, "%2d: %s", strlen(visual[i]), visual[i]);
+                mvwchgat(win, i+1, 1, 40, A_UNDERLINE, 0, NULL);
+            }
             mvwprintw(win, i+1, 1, "%2d: %s", strlen(visual[i]), visual[i]);
+            
+
             /*
              NOT SURE WHY THIS WONT WORK?? TYPE WRONG MAYBE??
             if(strlen(visual[i]) > 9) {
@@ -138,7 +194,7 @@ void view_bubble(WINDOW *win){
 
         wrefresh(win);
         //usleep(99999);
-        sleep(1);
+        sleep(4);
     }
 }
 
