@@ -116,6 +116,7 @@ void view_bubble(WINDOW *win){
         for(i = 0; i < bub_array_size; i++) {
             mvwprintw(win, i+1, 1, "%2d: %s", strlen(visual[i]), visual[i]);
             /*
+             NOT SURE WHY THIS WONT WORK?? TYPE WRONG MAYBE??
             if(strlen(visual[i]) > 9) {
                 mvwprintw(win, i+1, 1, "%d: poop %s", strlen(visual[i]), visual[i]);
             }
