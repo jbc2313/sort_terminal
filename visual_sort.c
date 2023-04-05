@@ -174,7 +174,7 @@ void view_bubble(WINDOW *win){
         for(i = 0; i < bub_array_size; i++) {
             if(i == to_index) {
                 mvwprintw(win, i+1, 1, "%2d: %s", strlen(visual[i]), visual[i]);
-                mvwchgat(win, i+1, 1, 40, A_UNDERLINE, 0, NULL);
+                mvwchgat(win, i+1, 1, 60, A_UNDERLINE, 0, NULL);
             }
             mvwprintw(win, i+1, 1, "%2d: %s", strlen(visual[i]), visual[i]);
             
@@ -194,7 +194,7 @@ void view_bubble(WINDOW *win){
 
         wrefresh(win);
         //usleep(99999);
-        sleep(4);
+        sleep(2);
     }
 }
 
