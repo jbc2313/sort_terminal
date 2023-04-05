@@ -57,17 +57,19 @@ void view_bubble(WINDOW *win){
     // have to figure this out
     char visual[10][30] = {"x","x","x","x","x","x","x","x","x","x"};
     //char *visual[30] = {"x","x","x","x","x","x","x","x","x","x"};
+    
+    // two dimensional array used to highlight lines moving
     int lookup[10][2] = { 
-        2,2,
-        2,2,
-        2,2,
-        2,2,
-        2,2,
-        2,2,
-        2,2,
-        2,2,
-        2,2,
-        2,2,
+        0,0,
+        0,0,
+        0,0,
+        0,0,
+        0,0,
+        0,0,
+        0,0,
+        0,0,
+        0,0,
+        0,0,
     };
     
     //make visual match bub_array with x's 
@@ -80,13 +82,19 @@ void view_bubble(WINDOW *win){
     // j < 10 because array is 10. j <= 10 is actually 11 
     for(j = 0; j < 10; j++) {
        lookup[j][0] = (int)strlen(visual[j]); 
+       lookup[j][1] = j;
     };
 
+
+    // print inital lookup table on right of screen
     for(j = 0; j < 10; j++) {
         int tmp = lookup[j][0];
+        int tmp2 = lookup[j][1];
         mvwprintw(win, j+1, 30, "lookup 0: %d", tmp);
+        mvwprintw(win, j+1, 45, "%d", tmp2);
     }
-    //print visual array on screen 
+
+    // print visual array before sort starts
     for(i = 0; i < bub_array_size; i++) {
         mvwprintw(win, i+1, 1, "%d: %s", strlen(visual[i]), visual[i]);
     };
