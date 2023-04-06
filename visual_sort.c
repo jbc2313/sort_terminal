@@ -194,7 +194,7 @@ void view_bubble(WINDOW *win){
 
         wrefresh(win);
         //usleep(99999);
-        sleep(2);
+        sleep(1);
     }
 }
 
