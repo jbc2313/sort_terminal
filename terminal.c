@@ -143,6 +143,7 @@ void screen() {
     int ch;
     int algo_user_choice;
     initscr(); // start ncurses
+    start_color();
     getmaxyx(stdscr, row, col); 
     raw(); // line buffering disabled
 

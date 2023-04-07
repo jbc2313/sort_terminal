@@ -171,10 +171,17 @@ void view_bubble(WINDOW *win){
         for(d = 0; d < bub_array_size; d++) {
             mvwprintw(win, d+1, 1, "                                      ");
         }
-        for(i = 0; i < bub_array_size; i++) {
+        // print visual array to screen
+        for(i = 0; i < bub_array_size; i++) {   
+            init_pair(1, COLOR_RED, COLOR_BLACK);
+            wattroff(win,COLOR_PAIR(1));
             if(i == to_index) {
+                init_pair(1, COLOR_RED, COLOR_BLUE);
+                wattron(win, COLOR_PAIR(1));
+                //mvwchgat(win, i+1, 1, 60, A_BOLD, 1, NULL);
                 mvwprintw(win, i+1, 1, "%2d: %s", strlen(visual[i]), visual[i]);
-                mvwchgat(win, i+1, 1, 60, A_UNDERLINE, 0, NULL);
+                //wattroff(win,COLOR_PAIR(1));
+                //mvwchgat(win, i+1, 1, 60, A_UNDERLINE, 1, NULL);
             }
             mvwprintw(win, i+1, 1, "%2d: %s", strlen(visual[i]), visual[i]);
             
