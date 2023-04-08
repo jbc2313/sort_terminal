@@ -172,13 +172,12 @@ void view_bubble(WINDOW *win){
             mvwprintw(win, d+1, 1, "                                      ");
         }
         // print visual array to screen
-        for(i = 0; i < bub_array_size; i++) {   
+        for(i = 0; i < bub_array_size; i++) {    
+            // add color to the index that was moved last.
             init_pair(1, COLOR_RED, COLOR_BLACK);
             wattroff(win,COLOR_PAIR(1));
             if(i == to_index) {
-                init_pair(1, COLOR_RED, COLOR_BLUE);
                 wattron(win, COLOR_PAIR(1));
-                //mvwchgat(win, i+1, 1, 60, A_BOLD, 1, NULL);
                 mvwprintw(win, i+1, 1, "%2d: %s", strlen(visual[i]), visual[i]);
                 //wattroff(win,COLOR_PAIR(1));
                 //mvwchgat(win, i+1, 1, 60, A_UNDERLINE, 1, NULL);
