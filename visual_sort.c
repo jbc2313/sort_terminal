@@ -181,6 +181,7 @@ void view_bubble(WINDOW *win){
                 mvwprintw(win, i+1, 1, "%2d: %s  ", strlen(visual[i]), visual[i]);
                 //wattroff(win,COLOR_PAIR(1));
                 //mvwchgat(win, i+1, 1, 60, A_UNDERLINE, 1, NULL);
+                //Everything randomly turns red bug... ??
             }
             mvwprintw(win, i+1, 1, "%2d: %s", strlen(visual[i]), visual[i]);
             
@@ -205,3 +206,10 @@ void view_bubble(WINDOW *win){
 }
 
 /* Merge Sort */ 
+
+
+
+
+
+
+
