@@ -200,7 +200,8 @@ void screen() {
                             view_bubble(term_window);
                             break;
                         case 1:
-                            print_userchoice_center(term_window, algo_user_choice, row, col);
+                            view_merge(term_window);
+                            //print_userchoice_center(term_window, algo_user_choice, row, col);
                             break;
                         case 2:
                             print_userchoice_center(term_window, algo_user_choice, row, col);

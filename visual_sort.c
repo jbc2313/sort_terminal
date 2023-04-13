@@ -273,6 +273,11 @@ void merge (int *pntr, int low, int high) {
     }
 };
 
+void view_merge(WINDOW *win){
+    mvwprintw(win, 1, 1, "Merge Sort Visualized");
+    mvwprintw(win, 2, 1, "THE POWER OF NCURSES");
+}
+
 
 /* END OF MERGE */
 
