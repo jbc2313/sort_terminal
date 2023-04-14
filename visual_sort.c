@@ -278,9 +278,68 @@ void view_merge(WINDOW *win){
     int merge_array_size = sizeof(merge_array) / sizeof(merge_array[0]);
     char visual[10][30] = {"x","x","x","x","x","x","x","x","x","x"};
 
+    
+    // two dimensional array used to highlight lines moving
+    int original_lookup[10][2];
+    int lookup[10][2] = { 
+        0,0,
+        0,0,
+        0,0,
+        0,0,
+        0,0,
+        0,0,
+        0,0,
+        0,0,
+        0,0,
+        0,0,
+    };
+    
+    //make visual match bub_array with x's 
+    
+    int i, x;
+    for(i = 0; i < merge_array_size; i++){  
+         for(x = merge_array[i] - 1; x > 0; x--){ 
+             strcat(visual[i], "x");
+         } 
+     };
+     
 
-    mvwprintw(win, 1, 1, "Merge Sort Visualized");
-    mvwprintw(win, 2, 1, "THE POWER OF NCURSES");
+    // copy visual index size to lookup index lhand 
+    // j < 10 because array is 10. j <= 10 is actually 11 
+    
+    int j;
+    for(j = 0; j < 10; j++) {
+       lookup[j][0] = (int)strlen(visual[j]); 
+       original_lookup[j][0] = (int)strlen(visual[j]);
+       lookup[j][1] = j;
+       original_lookup[j][1] = j;
+    };
+
+    
+
+    
+    // print inital lookup table on right of screen
+    
+    for(j = 0; j < 10; j++) {
+        int tmp = lookup[j][0];
+        int tmp2 = lookup[j][1];
+        mvwprintw(win, j+1, 30, "lookup 0: %d", tmp);
+        mvwprintw(win, j+1, 45, "%d", tmp2);
+    }
+    
+
+    // print visual array before sort starts
+    
+    for(i = 0; i < merge_array_size; i++) {
+        mvwprintw(win, i+1, 1, "%d: %s", strlen(visual[i]), visual[i]);
+    };
+    wrefresh(win);
+    sleep(1);
+    
+
+   // mvwprintw(win, 1, 1, "Merge Sort Visualized");
+   // mvwprintw(win, 2, 1, "THE POWER OF NCURSES");
+
 }
 
 
