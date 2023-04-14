@@ -274,6 +274,11 @@ void merge (int *pntr, int low, int high) {
 };
 
 void view_merge(WINDOW *win){
+    int merge_array[] = {8, 15, 3, 7, 2, 17, 12, 10, 5, 1}; 
+    int merge_array_size = sizeof(merge_array) / sizeof(merge_array[0]);
+    char visual[10][30] = {"x","x","x","x","x","x","x","x","x","x"};
+
+
     mvwprintw(win, 1, 1, "Merge Sort Visualized");
     mvwprintw(win, 2, 1, "THE POWER OF NCURSES");
 }
