@@ -175,13 +175,13 @@ void view_bubble(WINDOW *win){
         init_pair(1, COLOR_RED, COLOR_BLACK);
         for(i = 0; i < bub_array_size; i++) {    
             // add color to the index that was moved last.
-            wattroff(win,COLOR_PAIR(1));
+            //wattroff(win,COLOR_PAIR(1));
             if(i == to_index) {
-                wattron(win, COLOR_PAIR(1));
+                //wattron(win, COLOR_PAIR(1));
                 mvwprintw(win, i+1, 1, "%2d: %s  ", strlen(visual[i]), visual[i]);
-                //wattroff(win,COLOR_PAIR(1));
                 //mvwchgat(win, i+1, 1, 60, A_UNDERLINE, 1, NULL);
                 //Everything randomly turns red bug... ??
+                // This is happening because everything printed after wattron is printed red. DUH
             }
             mvwprintw(win, i+1, 1, "%2d: %s", strlen(visual[i]), visual[i]);
             
