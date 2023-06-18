@@ -324,7 +324,7 @@ void view_merge(WINDOW *win){
         int tmp = lookup[j][0];
         int tmp2 = lookup[j][1];
         mvwprintw(win, j+1, 30, "lookup init: %d", tmp);
-        mvwprintw(win, j+1, 45, "%d", tmp2);
+        mvwprintw(win, j+1, 47, "%d", tmp2);
     }
     
 
@@ -339,7 +339,7 @@ void view_merge(WINDOW *win){
     
     // start merge loop
     for(i = 0; i < 10; i++) {
-        mvwprintw(win, i+1, 4, "%d is the loop index", i); 
+        mvwprintw(win, i+1, 55, "%d is the loop index", i);
         wrefresh(win);
         sleep(1);
     }
