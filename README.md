@@ -12,9 +12,7 @@
 
 ## Technology Used
 
-### Mac M1 Air
 
 ### C
-### lldb
 ### Ncurses
 ### Neovim
