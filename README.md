@@ -11,8 +11,6 @@
 - quick
 
 ## Technology Used
-
-
 ### C
 ### Ncurses
-### Neovim
+### Neovim and Emacs (depends on the day :) )
