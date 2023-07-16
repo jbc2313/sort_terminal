@@ -10,7 +10,7 @@
 - insertion
 - quick
 
-## Technology Used
+## Tech Used
 ### C
 ### Ncurses
 ### Neovim and Emacs (depends on the day :) )
