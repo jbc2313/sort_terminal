@@ -4,8 +4,6 @@
 #include <assert.h>
 #include "visual_sort.c"
 
-//WINDOW *create_window(int height, int width, int start_y, int start_x);
-//void kill_window(WINDOW *window);
 
 //algorithms user has to choose from
 char *algo_choices[] = {
