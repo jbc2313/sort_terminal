@@ -4,50 +4,7 @@
 
 /* Bubble Sort */
 
-//original bubble sort algo
-/*
-void swap(int *x, int *y) {
-    int tmp = *x;
-    *x = *y;
-    *y = tmp;
-}
-*/
 
-// n is the size of the array
-/*
-void bub(int *pntr, int n) {
-    int i, z;
-    for (i = 0; i < n - 1; i++) {
-        for (z = 0; z < n - i - 1; z++) {
-            if (pntr[z] > pntr[z + 1]) {
-               swap(&pntr[z], &pntr[z + 1]); 
-            };
-        };
-    };
-}
-//end of original bubble sort code
-*/
-
-/*
-// my attempt at figuring out bubble sort with arrays of strings
-// could not get it to work due to pointers etc etc
-void bub(char *pntr, int array_size, int bub_iterator, WINDOW *win) {
-    int z;
-    for (z=0; z < array_size - bub_iterator - 1; z++) {
-       if(strlen(&pntr[z]) > strlen(&pntr[z+1])) {
-            //strswap(pntr[z], pntr[z+1], pntr);
-            char tmp[29];
-            strcpy(tmp, &pntr[z]);
-            //strcpy(&pntr[z], &pntr[z+1]);
-            //strcpy(&pntr[z+1], tmp);
-            mvwprintw(win, 18, 1, "__tmp of swap: %d %s", strlen(tmp), tmp); 
-            mvwprintw(win, 19, 1, "Lhand of swap: %d %s", strlen(&pntr[z]), &pntr[z]);
-            mvwprintw(win, 20, 1, "Rhand of swap: %d %s", strlen(&pntr[z+1]), &pntr[z+1]);
-            mvwprintw(win, 21+bub_iterator, 1, "num of iteration: %d", bub_iterator);
-       }
-    }
-}
-*/
 
 void view_bubble(WINDOW *win){
     int b, c, d, i, j, k, l, m, x, z;
