@@ -4,8 +4,6 @@
 
 /* Bubble Sort */
 
-
-
 void view_bubble(WINDOW *win){
     int b, c, d, i, j, k, l, m, x, z;
     int bub_array[] = { 12, 8, 9, 11, 6, 23, 15, 2, 7, 21};
@@ -162,7 +160,7 @@ void view_bubble(WINDOW *win){
     }
 }
 
-
+/* END OF Bubble */
 
 
 
