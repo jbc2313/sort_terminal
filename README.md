@@ -3,7 +3,7 @@
 > This is my attempt to visualize algorithms with ncurses.
 > This will display how the array is rearranged during the sort.
 
-## Algorithms available
+## Algorithms in program
 - bubble
 - merge
 - selection
@@ -13,4 +13,4 @@
 ## Tech Used
 ### C
 ### Ncurses
-### Neovim and Emacs (depends on the day :) )
+### Neovim && Emacs (depends on the day :) )
