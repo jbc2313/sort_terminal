@@ -232,58 +232,7 @@ void merge (int *pntr, int low, int high) {
 
     }
 };
-
-
-// sort visual string arrays like in same style as sort above.
-void sort_vis(int *pntr, int low, int mid, int high) {
-    int x, y, z;
-    int nLow = mid - low + 1;
-    int nHigh = high - mid;
-    int lowArr[nLow], highArr[nHigh];
-
-    // copy to both temp arrays
-    for (x = 0; x < nLow; x++) {
-        lowArr[x] = pntr[low + x];
-    };
-    for (y = 0; y < nHigh; y++) {
-        highArr[y] = pntr[mid + 1 + y];
-    };
-    
-    // merge temp arrays back together pntr[low...high]
-    
-    // index of lowArr
-    x = 0;
-    // index of highArr
-    y = 0;
-    // index of merged arrays
-    z = low;
-
-    while (x < nLow && y < nHigh) {
-        if (lowArr[x] <= highArr[y]) {
-            pntr[z] = lowArr[x];
-            x++;
-        } else {
-            pntr[z] = highArr[y];
-            y++;
-        };
-        z++;
-    };
-
-    while (x < nLow) {
-        pntr[z] = lowArr[x];
-        x++;
-        z++;
-    };
-
-    while (y < nHigh) {
-        pntr[z] = highArr[y];
-        y++;
-        z++;
-    };
-
-};
-
-
+// end of original merge sort for int array
 
 
 void view_merge(WINDOW *win){
@@ -317,29 +266,6 @@ void view_merge(WINDOW *win){
      };
      
 
-    // copy visual index size to lookup index lhand 
-    // j < 10 because array is 10. j <= 10 is actually 11 
-    
-    int j;
-    for(j = 0; j < 10; j++) {
-       lookup[j][0] = (int)strlen(visual[j]); 
-       original_lookup[j][0] = (int)strlen(visual[j]);
-       lookup[j][1] = j;
-       original_lookup[j][1] = j;
-    };
-
-    
-
-    
-    // print inital lookup table on right of screen
-    
-    for(j = 0; j < 10; j++) {
-        int tmp = lookup[j][0];
-        int tmp2 = lookup[j][1];
-        mvwprintw(win, j+1, 30, "lookup init: %d", tmp);
-        mvwprintw(win, j+1, 47, "%d", tmp2);
-    }
-    
 
     // print visual array before sort starts
     
@@ -355,35 +281,35 @@ void view_merge(WINDOW *win){
 
 
     // start merge loop
-    for(i = 0; i < merge_array_size; i++) {
-        // this loop might be unnessary 
-        //mvwprintw(win, i+1, 55, "%d is the loop index", i);
+    // this is 10 because the array size is 10
+    for(i = 0; i < merge_array_size; i++) 
+    {
+        merge(merge_array, 0, merge_array_size - 1);
 
-        // pointer to the array we are sorting 
-        int *array_pointer;
-        // low is zero because it is the the first number in an array.
-        int low = 0;
-        // high is alwasy array size minuz 1.
-        int high = merge_array_size - 1;
-        if ( low < high ) {
-            // (low + high)/2 will work too, below prevents overflow 
-            int mid = low + (high - low) / 2;
-            merge(array_pointer, low, mid);
-            merge(array_pointer, mid + 1, high);
-            sort_vis(array_pointer, low, mid, high);
-
-        }
-        wrefresh(win);
-        sleep(1);
+        /* wrefresh(win); */
+        /* sleep(1); */
     }
+    
+    clrtobot(); 
 
+    for(i = 0; i < merge_array_size; i++){  
+         for(x = merge_array[i] - 1; x > 0; x--){ 
+             strcpy(visual[i], "x");
+         } 
+     };
 
-    // test to see if visual array was actually sorted at the end.
+    for(i = 0; i < merge_array_size; i++){  
+         for(x = merge_array[i] - 1; x > 0; x--){ 
+             strcat(visual[i], "x");
+         } 
+     };
+
     for(i = 0; i < merge_array_size; i++) {
         mvwprintw(win, i+1, 1, "%d: %s", strlen(visual[i]), visual[i]);
     };
     wrefresh(win);
     sleep(1);
+
 
 
    // mvwprintw(win, 1, 1, "Merge Sort Visualized");
